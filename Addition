@@ -1,0 +1,73 @@
+clear all
+clc
+n = input('Enter total number of sequences : ');
+
+display('Enter length of sequences : ');
+for i = 1:n
+    l(i) = input('Enter : ');
+end;
+
+display('Enter value of sequences : ');
+for i = 1:n
+ %   display((i+1));
+    for j = 1:l(i)
+    a(i,j) = input('\nEnter : ');
+    end;
+    a(i,:)
+    s(i) = input('Enter starting(0th) index : ');
+end;
+
+s(1,2);
+s(2);
+
+%for i = 1:n
+ %   for j = 1:n
+  %      t(i,j) = 0;
+   % end;
+%end;
+
+t_s = size(a);
+t = zeros(t_s);
+
+for i = 1:t_s(1)
+    val = 1-s(1,i);
+    for j = 1:t_s(2);
+        if val<=l(1,i)-s(1,i);
+        t(i,j) = val;
+        else
+        break;
+        end;
+        val = val+1;
+    end;
+end;
+%t(:,i) = (1-s(1,i)):1:(l(1,i)-s(1,i));
+%end;
+
+y_s = [1 (abs(min(min(t)))+abs(max(max(t)))+1)];
+y = zeros(y_s);
+ind = 1;
+
+y_ind = min(min(t)):1:max(max(t));
+
+for i=min(min(t)):max(max(t))
+    for j = 1:n
+        for k = 1:size(t(1,:),2)
+        if t(j,k)==i
+            y(ind) = y(ind)+a(j,k);
+        end;
+        end;
+    end;
+    ind = ind + 1;
+end;
+
+y
+
+for i =1:n
+    subplot(n+1,1,i);
+    stem(t(i,:),a(i,:));
+    %axis([min(min(t))-1 max(max(t))+1 min(min(a)) max(max(a))+1]);
+end;
+    
+subplot(n+1,1,i+1)
+    stem(y_ind,y);
+    axis([min(min(t))-1 max(max(t))+1 min(min(y)) max(max(y))+1]);
